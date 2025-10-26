@@ -1,0 +1,13 @@
+package com.example.filiereservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FiliereServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(FiliereServiceApplication.class, args);
+    }
+
+}
