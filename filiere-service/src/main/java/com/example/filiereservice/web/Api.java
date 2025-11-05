@@ -1,7 +1,6 @@
 package com.example.filiereservice.web;
 
 import com.example.filiereservice.dto.FiliereRequestDto;
-
 import com.example.filiereservice.dto.FiliereResponseDto;
 import com.example.filiereservice.service.FiliereService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -13,16 +12,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
-
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// Documentation globale de l'API
 @OpenAPIDefinition(
         info = @Info(
                 title = "Gestion des filières",
@@ -60,7 +56,7 @@ public class Api {
     )
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @PostMapping
-    public ResponseEntity<FiliereResponseDto> ajouter(@RequestBody FiliereRequestDto dto) {
+    public ResponseEntity<FiliereResponseDto> addFiliere(@RequestBody FiliereRequestDto dto) {
         return ResponseEntity.ok(service.ajouter(dto));
     }
 
@@ -77,9 +73,9 @@ public class Api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN','SCOPE_USER')")
     @GetMapping
-    public ResponseEntity<List<FiliereResponseDto>> listerToutes() {
+    public ResponseEntity<List<FiliereResponseDto>> getAllFilieres() {
         return ResponseEntity.ok(service.listerToutes());
     }
 
@@ -97,9 +93,9 @@ public class Api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN','SCOPE_USER')")
     @GetMapping("/{id}")
-    public ResponseEntity<FiliereResponseDto> obtenirParId(@PathVariable Long id) {
+    public ResponseEntity<FiliereResponseDto> getFiliereById(@PathVariable Long id) {
         return ResponseEntity.ok(service.obtenirParId(id));
     }
 
@@ -126,7 +122,7 @@ public class Api {
     )
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<FiliereResponseDto> modifier(@PathVariable Long id, @RequestBody FiliereRequestDto dto) {
+    public ResponseEntity<FiliereResponseDto> updateFiliere(@PathVariable Long id, @RequestBody FiliereRequestDto dto) {
         return ResponseEntity.ok(service.modifier(id, dto));
     }
 
@@ -141,7 +137,7 @@ public class Api {
     )
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> supprimer(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteFiliere(@PathVariable Long id) {
         service.supprimer(id);
         return ResponseEntity.ok().build();
     }

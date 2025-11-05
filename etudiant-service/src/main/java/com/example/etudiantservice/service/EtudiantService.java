@@ -47,4 +47,24 @@ public class EtudiantService {
         return restTemplate.getForObject("http://localhost:8083/api/filieres/" + idFiliere,
                 FiliereResponseDto.class);
     }
+    public EtudiantResponseDto update(Long id, EtudiantRequestDto dto) {
+        Etudiant etudiant = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Étudiant non trouvé"));
+        etudiant.setNom(dto.getNom());
+        etudiant.setPrenom(dto.getPrenom());
+        etudiant.setCne(dto.getCne());
+        etudiant.setIdFiliere(dto.getIdFiliere());
+        repository.save(etudiant);
+        FiliereResponseDto filiere = getFiliere(etudiant.getIdFiliere());
+        return mapper.entityToDto(etudiant, filiere);
+    }
+
+
+
+    public void delete(Long id) {
+        Etudiant etudiant = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Étudiant non trouvé"));
+        repository.delete(etudiant);
+    }
+
 }

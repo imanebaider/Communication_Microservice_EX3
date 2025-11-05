@@ -16,12 +16,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
-    private  RsaKeys rsaKeys;
+    private RsaKeys rsaKeys;
 
     public SecurityConfig(RsaKeys rsaKeys) {
         this.rsaKeys = rsaKeys;
     }
+
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

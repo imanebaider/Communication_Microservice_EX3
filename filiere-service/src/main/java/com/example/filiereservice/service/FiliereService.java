@@ -50,4 +50,6 @@ public class FiliereService {
     public void supprimer(Long id) {
         repository.deleteById(id);
     }
+
+
 }
