@@ -1,9 +1,9 @@
 package com.example.filiereservice.web;
 
 import com.example.filiereservice.dto.FiliereRequestDto;
+
 import com.example.filiereservice.dto.FiliereResponseDto;
 import com.example.filiereservice.service.FiliereService;
-
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,6 +17,8 @@ import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 
 import java.util.List;
 
@@ -56,6 +58,7 @@ public class Api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @PostMapping
     public ResponseEntity<FiliereResponseDto> ajouter(@RequestBody FiliereRequestDto dto) {
         return ResponseEntity.ok(service.ajouter(dto));
@@ -74,6 +77,7 @@ public class Api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<FiliereResponseDto>> listerToutes() {
         return ResponseEntity.ok(service.listerToutes());
@@ -93,6 +97,7 @@ public class Api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<FiliereResponseDto> obtenirParId(@PathVariable Long id) {
         return ResponseEntity.ok(service.obtenirParId(id));
@@ -119,6 +124,7 @@ public class Api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<FiliereResponseDto> modifier(@PathVariable Long id, @RequestBody FiliereRequestDto dto) {
         return ResponseEntity.ok(service.modifier(id, dto));
@@ -133,6 +139,7 @@ public class Api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> supprimer(@PathVariable Long id) {
         service.supprimer(id);

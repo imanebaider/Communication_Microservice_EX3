@@ -2,8 +2,8 @@ package com.example.etudiantservice.web;
 
 import com.example.etudiantservice.dto.EtudiantRequestDto;
 import com.example.etudiantservice.dto.EtudiantResponseDto;
-import com.example.etudiantservice.service.EtudiantService;
 
+import com.example.etudiantservice.service.EtudiantService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ public class api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @PostMapping
     public ResponseEntity<EtudiantResponseDto> create(@RequestBody EtudiantRequestDto dto) {
         return ResponseEntity.ok(service.create(dto));
@@ -74,6 +76,7 @@ public class api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<EtudiantResponseDto>> getAll() {
         return ResponseEntity.ok(service.getAll());
@@ -93,6 +96,7 @@ public class api {
                     @ApiResponse(responseCode = "5xx", description = "Erreur serveur")
             }
     )
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<EtudiantResponseDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));

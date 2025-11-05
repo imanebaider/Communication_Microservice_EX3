@@ -1,14 +1,14 @@
 package com.example.etudiantservice.service;
 
-import com.example.etudiantservice.mapper.EtudiantMapper;
 import com.example.etudiantservice.dto.EtudiantRequestDto;
 import com.example.etudiantservice.dto.EtudiantResponseDto;
-import com.example.etudiantservice.entities.Etudiant;
 import com.example.etudiantservice.dto.FiliereResponseDto;
+import com.example.etudiantservice.entities.Etudiant;
 
+import com.example.etudiantservice.mapper.EtudiantMapper;
+import com.example.etudiantservice.repository.EtudiantRepository;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.etudiantservice.repository.EtudiantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
